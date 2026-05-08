@@ -6,353 +6,932 @@
 <title>MN — What I see and what we can do</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff;color:#111;padding:3rem 4rem 5rem;line-height:1.5}
-.meta{font-size:11px;color:#999;margin-bottom:.5rem;letter-spacing:.04em}
-h1{font-size:24px;font-weight:600;margin-bottom:.6rem;max-width:600px;line-height:1.35}
-.sub{font-size:13px;color:#666;max-width:520px;margin-bottom:3rem;line-height:1.65}
-.sec{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#bbb;margin:2.5rem 0 .75rem;padding-bottom:.4rem;border-bottom:1px solid #f0f0f0}
-.person{margin-bottom:4px}
-.ph{display:flex;align-items:flex-start;gap:12px;padding:.75rem 0;cursor:pointer;border-bottom:1px solid #f5f5f5}
-.ph:hover .pname{color:#0066cc}
-.av{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;margin-top:1px}
-.pl{flex:1}
-.prow{display:flex;align-items:baseline;gap:8px;margin-bottom:.2rem}
-.pname{font-size:14px;font-weight:600;color:#111;transition:color .15s}
-.prole{font-size:11px;color:#999}
-.pdesc{font-size:12px;color:#666;line-height:1.55}
-.parrow{font-size:10px;color:#ccc;flex-shrink:0;padding-top:4px;transition:transform .2s}
-.parrow.open{transform:rotate(180deg)}
-.pbody{display:none;padding:.25rem 0 .75rem 44px}
-.pbody.open{display:block}
-.gap-block{margin-bottom:1rem}
-.gap-label{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#bbb;margin-bottom:.35rem}
-.gap-text{font-size:12px;color:#888;margin-bottom:.25rem;line-height:1.55}
-.fix-text{font-size:12px;color:#333;margin-bottom:.5rem;line-height:1.55}
-.candidates{display:flex;flex-wrap:wrap;gap:6px}
-.clink{font-size:11px;color:#0066cc;text-decoration:none;padding:2px 0;border-bottom:1px solid #cce0ff;white-space:nowrap}
-.clink:hover{border-color:#0066cc}
-.ctag{font-size:10px;color:#999;margin-left:3px}
-.priority{margin-top:4rem;padding-top:2rem;border-top:1px solid #eee}
-.ptitle{font-size:16px;font-weight:600;margin-bottom:.35rem}
-.psub{font-size:12px;color:#888;margin-bottom:2rem;line-height:1.6}
-.pgroup-label{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#bbb;margin:1.5rem 0 .75rem}
-.prow2{display:flex;align-items:flex-start;gap:16px;padding:.6rem 0;border-bottom:1px solid #f5f5f5}
-.prow2:last-child{border-bottom:none}
-.pn{font-size:13px;font-weight:600;min-width:180px;flex-shrink:0}
-.pn a{color:#111;text-decoration:none;border-bottom:1px solid #ddd}
-.pn a:hover{border-color:#111}
-.pn-note{font-size:10px;color:#e08000;margin-left:5px;font-weight:400}
-.ptags{display:flex;flex-wrap:wrap;gap:5px;padding-top:2px}
-.ptag{font-size:11px;color:#555;background:#f5f5f3;padding:2px 9px;border-radius:999px}
-.closing{margin-top:2rem;font-size:12px;color:#999;line-height:1.65}
-@media(max-width:700px){body{padding:2rem 1.25rem 3rem}}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f7f7f5;color:#111;min-height:100vh}
+
+.hero{background:#fff;border-bottom:1px solid #e8e8e4;padding:3rem 5%;margin-bottom:2rem}
+.hero-meta{font-size:11px;color:#aaa;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.6rem}
+.hero-title{font-size:26px;font-weight:700;line-height:1.3;margin-bottom:.75rem;max-width:560px}
+.hero-sub{font-size:13px;color:#777;max-width:480px;line-height:1.7}
+
+.content{padding:0 5% 5rem}
+
+.sec-label{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#bbb;margin:2rem 0 .75rem}
+
+/* Person card */
+.pcard{background:#fff;border-radius:14px;border:1px solid #e8e8e4;margin-bottom:10px;overflow:hidden;transition:box-shadow .2s}
+.pcard:hover{box-shadow:0 2px 12px rgba(0,0,0,.05)}
+.pcard-header{display:flex;align-items:flex-start;gap:14px;padding:1.1rem 1.25rem;cursor:pointer;user-select:none}
+.av{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+.ph-body{flex:1}
+.ph-top{display:flex;align-items:baseline;gap:8px;margin-bottom:.25rem}
+.ph-name{font-size:15px;font-weight:600;color:#111}
+.ph-role{font-size:11px;color:#aaa}
+.ph-desc{font-size:13px;color:#333;line-height:1.55}
+.ph-arrow{font-size:10px;color:#ccc;flex-shrink:0;margin-top:6px;transition:transform .25s}
+.pcard.open .ph-arrow{transform:rotate(180deg)}
+
+.pcard-body{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.pcard.open .pcard-body{max-height:3000px}
+.pcard-inner{border-top:1px solid #f0f0ee;padding:1rem 1.25rem}
+
+/* Gap block */
+.gap-block{margin-bottom:1.25rem;padding-bottom:1.25rem;border-bottom:1px solid #f5f5f3}
+.gap-block:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none}
+.gap-name{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#999;margin-bottom:.6rem}
+.gap-issue{font-size:12px;color:#888;margin-bottom:.75rem;line-height:1.5;font-style:italic}
+
+/* Candidate pills row */
+.cands{display:flex;flex-wrap:wrap;gap:8px}
+
+/* Individual candidate pill - clickable */
+.cand-wrap{position:relative}
+.cand-pill{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:999px;border:1px solid #e0e0dc;background:#fafaf8;cursor:pointer;transition:all .2s;user-select:none}
+.cand-pill:hover{border-color:#aaa;background:#f3f3f0}
+.cand-pill.open{border-color:#111;background:#111;color:#fff}
+.cp-teal .cand-pill{background:#e8f7f0;border-color:#9FE1CB;color:#085041}.cp-teal .cand-pill.open{background:#085041;border-color:#085041;color:#fff}
+.cp-purple .cand-pill{background:#EEEDFE;border-color:#AFA9EC;color:#3C3489}.cp-purple .cand-pill.open{background:#3C3489;border-color:#3C3489;color:#fff}
+.cp-amber .cand-pill{background:#FAEEDA;border-color:#FAC775;color:#633806}.cp-amber .cand-pill.open{background:#633806;border-color:#633806;color:#fff}
+.cp-blue .cand-pill{background:#E6F1FB;border-color:#85B7EB;color:#0C447C}.cp-blue .cand-pill.open{background:#0C447C;border-color:#0C447C;color:#fff}
+.cp-coral .cand-pill{background:#FAECE7;border-color:#F0997B;color:#712B13}.cp-coral .cand-pill.open{background:#712B13;border-color:#712B13;color:#fff}
+.cp-pink .cand-pill{background:#FBEAF0;border-color:#ED93B1;color:#72243E}.cp-pink .cand-pill.open{background:#72243E;border-color:#72243E;color:#fff}
+.cp-gray .cand-pill{background:#F1EFE8;border-color:#B4B2A9;color:#444441}.cp-gray .cand-pill.open{background:#444441;border-color:#444441;color:#fff}
+.cand-pill-name{font-size:12px;font-weight:600;color:inherit}
+.cand-pill-tag{font-size:10px;color:#aaa;font-weight:400}
+.cand-pill.open .cand-pill-tag{color:rgba(255,255,255,.5)}
+.cand-pill-arrow{font-size:9px;color:#ccc;transition:transform .2s}
+.cand-pill.open .cand-pill-arrow{transform:rotate(180deg);color:rgba(255,255,255,.5)}
+
+/* Candidate detail card */
+.cand-detail{display:none;margin-top:6px;background:#fff;border:1px solid #e8e8e4;border-radius:12px;padding:.875rem 1rem;min-width:220px}
+.cand-wrap.open .cand-detail{display:block}
+.cand-detail-name{font-size:12px;font-weight:700;margin-bottom:.5rem;display:flex;align-items:center;gap:8px}
+.cand-detail-name a{color:#0055cc;text-decoration:none;font-size:11px;font-weight:400;border-bottom:1px solid #cce0ff}
+.cand-detail-name a:hover{border-color:#0055cc}
+.cand-phrases{display:flex;flex-direction:column;gap:4px}
+.cand-phrase{font-size:12px;color:#111;padding:3px 0;display:flex;align-items:flex-start;gap:6px;line-height:1.4}
+.cand-phrase::before{content:"·";color:#bbb;flex-shrink:0;margin-top:1px}
+.tool-badge{font-size:10px;background:#e8f5f0;color:#0a6644;padding:2px 8px;border-radius:999px;font-weight:500;border:none}
+
+/* Priority section */
+.priority{background:#fff;border-radius:14px;border:1px solid #e8e8e4;margin-top:3rem;overflow:hidden}
+.priority-top{padding:1.75rem 1.5rem 1.25rem}
+.priority-title{font-size:18px;font-weight:700;margin-bottom:.4rem}
+.priority-sub{font-size:13px;color:#888;line-height:1.6;max-width:500px}
+.p-tabs{display:flex;gap:0;border-bottom:1px solid #eee;padding:0 1.5rem;overflow-x:auto}
+.p-tab{font-size:12px;font-weight:600;color:#bbb;padding:.75rem 1rem;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;white-space:nowrap}
+.p-tab.active{color:#111;border-bottom-color:#111}
+.p-panel{display:none;padding:1.25rem 1.5rem}
+.p-panel.active{display:block}
+.p-row{display:flex;align-items:flex-start;gap:14px;padding:.75rem 0;border-bottom:1px solid #f5f5f3}
+.p-row:last-child{border-bottom:none}
+.p-left{min-width:185px;flex-shrink:0}
+.p-cname{font-size:13px;font-weight:600;margin-bottom:2px}
+.p-cname a{color:#111;text-decoration:none;border-bottom:1px dashed #ccc}
+.p-cname a:hover{border-bottom-color:#111}
+.p-cnote{font-size:11px;color:#e07000}
+.p-tags{display:flex;flex-wrap:wrap;gap:5px;padding-top:2px}
+.ptag{font-size:11px;color:#444;background:#f3f3f1;padding:3px 10px;border-radius:999px}
+.budget-box{margin-top:1.25rem;padding:1rem 1.25rem;background:#f9fdf9;border-radius:10px;border:1px solid #d4edd9}
+.budget-title{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#0a6644;margin-bottom:.5rem}
+.budget-body{font-size:12px;color:#444;line-height:1.7}
+.budget-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:.875rem}
+.bg-box{background:#fff;border-radius:8px;padding:.75rem 1rem;border:1px solid #e8e8e4}
+.bg-label{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#bbb;margin-bottom:.3rem}
+.bg-text{font-size:12px;color:#444;line-height:1.55}
+.p-closing{padding:1rem 1.5rem;background:#f9f9f7;border-top:1px solid #eee;font-size:12px;color:#888;line-height:1.65}
+
+@media(max-width:640px){
+  .hero,.content{padding-left:1.25rem;padding-right:1.25rem}
+  .budget-grid{grid-template-columns:1fr}
+  .p-left{min-width:140px}
+}
 </style>
 </head>
 <body>
 
-<div class="meta">For Sandeep</div>
-<h1>Sandeep, I think I know what is holding us back</h1>
-<p class="sub">Each person is good at something. The problem is everything around that. This maps where each team member is stretched and who takes that off them.</p>
-
-<div class="sec">Sandeep</div>
-
-<div class="person">
-<div class="ph" onclick="tog('sandeep')">
-<div class="av" style="background:#e8f0fe;color:#1a56db">SJ</div>
-<div class="pl">
-<div class="prow"><span class="pname">Sandeep Jain</span><span class="prole">CEO</span></div>
-<div class="pdesc">Good at product vision. Needs people who have been at this stage before for funding, investor narrative, and strategic clarity.</div>
+<div class="hero">
+<div class="hero-meta">For Sandeep · May 2026</div>
+<div class="hero-title">Sandeep, I think I know what is holding us back</div>
+<div class="hero-sub">Each person is good at something specific. The problem is what they are asked to do around that. This maps where each person is stretched and who fixes it. Tap any person, then tap any candidate to see what they bring.</div>
 </div>
-<div class="parrow" id="arr-sandeep">▼</div>
+
+<div class="content">
+
+<div class="sec-label">Sandeep</div>
+
+<div class="pcard" id="pc-sandeep">
+<div class="pcard-header" onclick="togP('sandeep')">
+<div class="av" style="background:#dbeafe;color:#1d4ed8">SJ</div>
+<div class="ph-body">
+<div class="ph-top"><span class="ph-name">Sandeep Jain</span><span class="ph-role">CEO</span></div>
+<div class="ph-desc">Good at product vision. Carrying funding, investor narrative, and strategic clarity alone. Needs people who have been at this exact stage before in his circle.</div>
 </div>
-<div class="pbody" id="sandeep">
+<div class="ph-arrow">▼</div>
+</div>
+<div class="pcard-body">
+<div class="pcard-inner">
+
 <div class="gap-block">
-<div class="gap-label">Investor narrative and funding</div>
-<div class="gap-text">Nobody on the team has been through a raise at this scale. Carrying this alone.</div>
-<div class="fix-text">Omar grew Chargebee product from $8M to $80M ARR. Germain built sales from 3 to 150 and led the $250M Series H. Both fractional now through ilimcraft. Approach as a pair.</div>
-<div class="candidates">
-<a href="https://www.linkedin.com/in/omarnawaz/" target="_blank" class="clink">Omar Nawaz<span class="ctag">fractional CPO</span></a>
-<a href="https://www.linkedin.com/in/germainbrion/" target="_blank" class="clink">Germain Brion<span class="ctag">fractional CRO</span></a>
+<div class="gap-name">Investor narrative and funding</div>
+<div class="gap-issue">Nobody on the team has been through a raise at this scale.</div>
+<div class="cands">
+<div id="cw-omar" class="cand-wrap cp-coral">
+<div class="cand-pill" onclick="togC('omar')">
+<span class="cand-pill-name">Omar Nawaz</span>
+<span class="cand-pill-tag">fractional CPO</span>
+<span class="cand-pill-arrow">▼</span>
+</div>
+<div class="cand-detail">
+<div class="cand-detail-name">Omar Nawaz <a href="https://www.linkedin.com/in/omarnawaz/" target="_blank">LinkedIn ↗</a></div>
+<div class="cand-phrases">
+<div class="cand-phrase">CPO at Chargebee during $8M to $80M ARR run</div>
+<div class="cand-phrase">Grew product team to 350, valuation 28x</div>
+<div class="cand-phrase">Now advises SaaS founders on AI-native product strategy</div>
+<div class="cand-phrase">Co-founds ilimcraft with Germain — approach as a pair</div>
+<div class="cand-phrase">Fractional CPO: low commitment, high access</div>
 </div>
 </div>
-<div class="gap-block">
-<div class="gap-label">AI product strategy</div>
-<div class="gap-text">Nobody on the team has run enterprise AI GTM at scale. This conversation should start now.</div>
-<div class="fix-text">Andy Wang ran North America enterprise at ByteDance, led industry GTM at DocuSign and Salesforce. Spencer's thinking partner as the AI roadmap builds.</div>
-<div class="candidates">
-<a href="https://www.linkedin.com/in/andydwang/" target="_blank" class="clink">Andy Wang<span class="ctag">future AI track</span></a>
 </div>
+<div id="cw-germain" class="cand-wrap cp-coral">
+<div class="cand-pill" onclick="togC('germain')">
+<span class="cand-pill-name">Germain Brion</span>
+<span class="cand-pill-tag">fractional CRO</span>
+<span class="cand-pill-arrow">▼</span>
 </div>
+<div class="cand-detail">
+<div class="cand-detail-name">Germain Brion <a href="https://www.linkedin.com/in/germainbrion/" target="_blank">LinkedIn ↗</a></div>
+<div class="cand-phrases">
+<div class="cand-phrase">Built Chargebee sales from 3 to 150 people</div>
+<div class="cand-phrase">Grew revenue 100x through GTM transformation</div>
+<div class="cand-phrase">Led $250M Series H at $3.5B valuation</div>
+<div class="cand-phrase">4 strategic acquisitions, $250M Series H</div>
+<div class="cand-phrase">Now fractional CRO for scaling SaaS companies</div>
 </div>
-</div>
-
-<div class="sec">Sales</div>
-
-<div class="person">
-<div class="ph" onclick="tog('brad')">
-<div class="av" style="background:#fef3e2;color:#92400e">BM</div>
-<div class="pl">
-<div class="prow"><span class="pname">Bradley Mortimore</span><span class="prole">Head of Sales</span></div>
-<div class="pdesc">Good at selling. Also building the content he sells with. Every deal starts from zero proof. Let Brad sell.</div>
-</div>
-<div class="parrow" id="arr-brad">▼</div>
-</div>
-<div class="pbody" id="brad">
-<div class="gap-block">
-<div class="gap-label">CFO content, case studies, community</div>
-<div class="gap-text">Walks into every meeting without proof. Building the pitch while delivering it.</div>
-<div class="fix-text">Swetha owns CFO narratives, case studies, conferences, community. Gopi frames product ROI. WriteChoice keeps collateral current.</div>
-<div class="candidates">
-<a href="https://www.linkedin.com/in/swetha-cb/" target="_blank" class="clink">Swetha Murali<span class="ctag">meet first</span></a>
-<a href="https://www.linkedin.com/in/gopi-ganesan/" target="_blank" class="clink">Gopi Ganesan</a>
-</div>
-</div>
-<div class="gap-block">
-<div class="gap-label">Revenue strategy</div>
-<div class="gap-text">Nobody on the team has built and scaled a SaaS revenue org.</div>
-<div class="fix-text">Germain grew Chargebee revenue 100x, team from 3 to 150. Fractional CRO. Proven playbook without a full-time cost.</div>
-<div class="candidates">
-<a href="https://www.linkedin.com/in/germainbrion/" target="_blank" class="clink">Germain Brion<span class="ctag">fractional CRO</span></a>
 </div>
 </div>
 </div>
 </div>
 
-<div class="person">
-<div class="ph" onclick="tog('perry')">
+<div class="gap-block">
+<div class="gap-name">AI product strategy</div>
+<div class="gap-issue">Nobody on the team has run enterprise AI GTM at scale. This conversation should start now.</div>
+<div class="cands">
+<div id="cw-andy" class="cand-wrap cp-coral">
+<div class="cand-pill" onclick="togC('andy')">
+<span class="cand-pill-name">Andy Wang</span>
+<span class="cand-pill-tag">future AI track</span>
+<span class="cand-pill-arrow">▼</span>
+</div>
+<div class="cand-detail">
+<div class="cand-detail-name">Andy Wang <a href="https://www.linkedin.com/in/andydwang/" target="_blank">LinkedIn ↗</a></div>
+<div class="cand-phrases">
+<div class="cand-phrase">GM North America Enterprise, ByteDance</div>
+<div class="cand-phrase">Head of Industry GTM, DocuSign</div>
+<div class="cand-phrase">Global Head of Wealth and Asset Management, Salesforce</div>
+<div class="cand-phrase">Deep AI and enterprise GTM expertise</div>
+<div class="cand-phrase">Spencer's thinking partner as the AI roadmap builds</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+
+<div class="sec-label">Sales</div>
+
+<div class="pcard" id="pc-brad">
+<div class="pcard-header" onclick="togP('brad')">
+<div class="av" style="background:#fef3c7;color:#92400e">BM</div>
+<div class="ph-body">
+<div class="ph-top"><span class="ph-name">Bradley Mortimore</span><span class="ph-role">Head of Sales</span></div>
+<div class="ph-desc">Good at selling. Also building the content he sells with. Every deal starts from zero proof. Let Brad sell.</div>
+</div>
+<div class="ph-arrow">▼</div>
+</div>
+<div class="pcard-body">
+<div class="pcard-inner">
+
+<div class="gap-block">
+<div class="gap-name">CFO content, case studies, community</div>
+<div class="gap-issue">Walks into every meeting without proof. Building the pitch while delivering it.</div>
+<div class="cands">
+<div id="cw-swetha" class="cand-wrap cp-amber">
+<div class="cand-pill" onclick="togC('swetha')">
+<span class="cand-pill-name">Swetha Murali</span>
+<span class="cand-pill-tag">meet first</span>
+<span class="cand-pill-arrow">▼</span>
+</div>
+<div class="cand-detail">
+<div class="cand-detail-name">Swetha Murali <a href="https://www.linkedin.com/in/swetha-cb/" target="_blank">LinkedIn ↗</a></div>
+<div class="cand-phrases">
+<div class="cand-phrase">Founding PMM at Rocketlane, built GTM from scratch</div>
+<div class="cand-phrase">Owns CFO narratives, case studies, conferences, community</div>
+<div class="cand-phrase">3 years at Chargebee in product marketing and brand</div>
+<div class="cand-phrase">Directs WriteChoice on what the market needs to read</div>
+<div class="cand-phrase">Brad walks into meetings with proof, not promises</div>
+</div>
+</div>
+</div>
+<div id="cw-gopi" class="cand-wrap cp-amber">
+<div class="cand-pill" onclick="togC('gopi')">
+<span class="cand-pill-name">Gopi Ganesan</span>
+<span class="cand-pill-arrow">▼</span>
+</div>
+<div class="cand-detail">
+<div class="cand-detail-name">Gopi Ganesan <a href="https://www.linkedin.com/in/gopi-ganesan/" target="_blank">LinkedIn ↗</a></div>
+<div class="cand-phrases">
+<div class="cand-phrase">4.5 years product and program at Chargebee</div>
+<div class="cand-phrase">Covered subscriptions, invoicing, taxation, platform, integrations</div>
+<div class="cand-phrase">Frames product ROI so Brad can quantify the value conversation</div>
+<div class="cand-phrase">Software capitalisation framing for investor reporting</div>
+<div class="cand-phrase">Spencer's product strategy partner</div>
+</div>
+</div>
+</div>
+<div class="cand-pill" style="cursor:default;background:#f0faf5;border-color:#c8e8d8">
+<span class="cand-pill-name" style="color:#0a6644">WriteChoice</span>
+<span class="cand-pill-tag" style="color:#0a6644">AI docs platform</span>
+</div>
+</div>
+</div>
+
+<div class="gap-block">
+<div class="gap-name">Revenue strategy</div>
+<div class="gap-issue">Nobody on the team has built and scaled a SaaS revenue org.</div>
+<div class="cands">
+<div id="cw-germain2" class="cand-wrap cp-coral">
+<div class="cand-pill" onclick="togC('germain2')">
+<span class="cand-pill-name">Germain Brion</span>
+<span class="cand-pill-tag">fractional CRO</span>
+<span class="cand-pill-arrow">▼</span>
+</div>
+<div class="cand-detail">
+<div class="cand-detail-name">Germain Brion <a href="https://www.linkedin.com/in/germainbrion/" target="_blank">LinkedIn ↗</a></div>
+<div class="cand-phrases">
+<div class="cand-phrase">Revenue 100x at Chargebee</div>
+<div class="cand-phrase">Team from 3 to 150 people</div>
+<div class="cand-phrase">Proven revenue playbook, fractional cost</div>
+<div class="cand-phrase">Brad gets a thinking partner who has done this before</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+
+<div class="pcard" id="pc-perry">
+<div class="pcard-header" onclick="togP('perry')">
 <div class="av" style="background:#fce7f3;color:#9d174d">PL</div>
-<div class="pl">
-<div class="prow"><span class="pname">Perry, Kevin and Krishna</span><span class="prole">Account coverage</span></div>
-<div class="pdesc">Three people covering all accounts. Perry is good at operations and executive presence, not customer experience strategy. As the book grows this breaks.</div>
+<div class="ph-body">
+<div class="ph-top"><span class="ph-name">Perry, Kevin and Krishna</span><span class="ph-role">Account coverage</span></div>
+<div class="ph-desc">Three people covering all accounts. Perry is good at operations and executive presence, not customer experience strategy. As the book grows this breaks.</div>
 </div>
-<div class="parrow" id="arr-perry">▼</div>
+<div class="ph-arrow">▼</div>
 </div>
-<div class="pbody" id="perry">
+<div class="pcard-body">
+<div class="pcard-inner">
+
 <div class="gap-block">
-<div class="gap-label">Enterprise C-suite accounts</div>
-<div class="gap-text">Xage, Mercell, Teleport, FirstDue, Tempo — executive attention and timeline accountability needed. Can't cover all of it while running operations.</div>
-<div class="fix-text">Praveen tracks every column, catches missed promises before they become problems. 19 years, PMP. Perry sponsors. Praveen executes.</div>
-<div class="candidates">
-<a href="https://www.linkedin.com/in/praveen-venugopal86/" target="_blank" class="clink">Praveen Venugopal<span class="ctag">founding</span></a>
+<div class="gap-name">Enterprise C-suite accounts</div>
+<div class="gap-issue">Xage, Mercell, Teleport, FirstDue, Tempo — executive attention and timeline accountability needed.</div>
+<div class="cands">
+<div id="cw-praveen" class="cand-wrap cp-teal">
+<div class="cand-pill" onclick="togC('praveen')">
+<span class="cand-pill-name">Praveen Venugopal</span>
+<span class="cand-pill-tag">founding</span>
+<span class="cand-pill-arrow">▼</span>
 </div>
+<div class="cand-detail">
+<div class="cand-detail-name">Praveen Venugopal <a href="https://www.linkedin.com/in/praveen-venugopal86/" target="_blank">LinkedIn ↗</a></div>
+<div class="cand-phrases">
+<div class="cand-phrase">19 years overall, PMP certified</div>
+<div class="cand-phrase">7 years Amazon operations management</div>
+<div class="cand-phrase">Tracks every column on enterprise accounts</div>
+<div class="cand-phrase">Catches missed promises before they become problems</div>
+<div class="cand-phrase">Perry sponsors, Praveen executes</div>
+<div class="cand-phrase">Keeps Xage, Mercell, Teleport, FirstDue, Tempo on track</div>
 </div>
-<div class="gap-block">
-<div class="gap-label">Retention and growth accounts</div>
-<div class="gap-text">Affinity, Jam — need a dedicated growth motion. Getting reactive treatment like every other account.</div>
-<div class="fix-text">Prajit owns relationship CS for Affinity-type. Padma brings growth strategy and solutions architecture. Aqil and Sanjana cover CS depth as the book grows.</div>
-<div class="candidates">
-<a href="https://www.linkedin.com/in/prajit-javery-180470137/" target="_blank" class="clink">Prajit Javery<span class="ctag">founding</span></a>
-<a href="https://www.linkedin.com/in/padmapriya-murali/" target="_blank" class="clink">Padmapriya Murali</a>
-<a href="https://www.linkedin.com/in/aqil-bary-92692218b/" target="_blank" class="clink">Aqil Bary</a>
-<a href="https://www.linkedin.com/in/sanjana-balakrishnan-customer-success/" target="_blank" class="clink">Sanjana Balakrishnan</a>
-</div>
-</div>
-<div class="gap-block">
-<div class="gap-label">Technical pre-sales depth</div>
-<div class="gap-text">Complex enterprise pre-sales needs specialist depth for FinTech, RevRec, and integration-heavy deals.</div>
-<div class="fix-text">Sankari leads technical solutioning. Anish covers FinTech and payments, supports Perry on executive presence. Nivedha handles mid-market volume.</div>
-<div class="candidates">
-<a href="https://www.linkedin.com/in/sankariss/" target="_blank" class="clink">Sankari<span class="ctag">founding</span></a>
-<a href="https://www.linkedin.com/in/anish-venkat-7a745395/" target="_blank" class="clink">Anish<span class="ctag">founding</span></a>
-<a href="https://www.linkedin.com/in/nivedha-venkatesh/" target="_blank" class="clink">Nivedha</a>
-</div>
-</div>
-<div class="gap-block">
-<div class="gap-label">TAM coverage as account book grows</div>
-<div class="gap-text">Siraya, Danfoss, DeScope need dedicated TAM ownership. Three people can't cover all of them with real depth.</div>
-<div class="fix-text">Karthik is the right founding hire for technical TAM anchor. Fewer accounts, more depth. Professional services accounts like Xage get a separate process.</div>
-<div class="candidates">
-<a href="https://www.linkedin.com/in/karthik-p-bhat-493541133/" target="_blank" class="clink">Karthik P Bhat<span class="ctag">founding hire</span></a>
 </div>
 </div>
 </div>
 </div>
 
-<div class="sec">Product</div>
+<div class="gap-block">
+<div class="gap-name">Retention and growth accounts</div>
+<div class="gap-issue">Affinity, Jam — need a dedicated growth motion. Getting reactive treatment like every other account.</div>
+<div class="cands">
+<div id="cw-prajit" class="cand-wrap cp-purple">
+<div class="cand-pill" onclick="togC('prajit')">
+<span class="cand-pill-name">Prajit Javery</span>
+<span class="cand-pill-tag">founding</span>
+<span class="cand-pill-arrow">▼</span>
+</div>
+<div class="cand-detail">
+<div class="cand-detail-name">Prajit Javery <a href="https://www.linkedin.com/in/prajit-javery-180470137/" target="_blank">LinkedIn ↗</a></div>
+<div class="cand-phrases">
+<div class="cand-phrase">Owns relationship CS for Affinity-type accounts</div>
+<div class="cand-phrase">Retention, growth conversations, customer happiness</div>
+<div class="cand-phrase">Highest referrer conviction in the entire pool</div>
+<div class="cand-phrase">Technical depth + CS warmth in one person</div>
+</div>
+</div>
+</div>
+<div id="cw-padma" class="cand-wrap cp-purple">
+<div class="cand-pill" onclick="togC('padma')">
+<span class="cand-pill-name">Padmapriya Murali</span>
+<span class="cand-pill-arrow">▼</span>
+</div>
+<div class="cand-detail">
+<div class="cand-detail-name">Padmapriya Murali <a href="https://www.linkedin.com/in/padmapriya-murali/" target="_blank">LinkedIn ↗</a></div>
+<div class="cand-phrases">
+<div class="cand-phrase">Growth strategy for Mercell, Affinity, Jam</div>
+<div class="cand-phrase">Solutions architecture skills — knows what's technically possible</div>
+<div class="cand-phrase">Chargebee AMER background — speaks the right language</div>
+<div class="cand-phrase">Founding pre-sales hire at Atomicwork — startup DNA</div>
+</div>
+</div>
+</div>
+<div id="cw-aqil" class="cand-wrap cp-purple">
+<div class="cand-pill" onclick="togC('aqil')">
+<span class="cand-pill-name">Aqil Bary</span>
+<span class="cand-pill-arrow">▼</span>
+</div>
+<div class="cand-detail">
+<div class="cand-detail-name">Aqil Bary <a href="https://www.linkedin.com/in/aqil-bary-92692218b/" target="_blank">LinkedIn ↗</a></div>
+<div class="cand-phrases">
+<div class="cand-phrase">Technical post-sales and CS depth</div>
+<div class="cand-phrase">7 years at Chargebee, deepest product knowledge</div>
+<div class="cand-phrase">Sharp, good with clients and communication</div>
+<div class="cand-phrase">Covers CS depth as the account book grows</div>
+</div>
+</div>
+</div>
+<div id="cw-sanjana" class="cand-wrap cp-purple">
+<div class="cand-pill" onclick="togC('sanjana')">
+<span class="cand-pill-name">Sanjana Balakrishnan</span>
+<span class="cand-pill-arrow">▼</span>
+</div>
+<div class="cand-detail">
+<div class="cand-detail-name">Sanjana Balakrishnan <a href="https://www.linkedin.com/in/sanjana-balakrishnan-customer-success/" target="_blank">LinkedIn ↗</a></div>
+<div class="cand-phrases">
+<div class="cand-phrase">CS across SMB to enterprise</div>
+<div class="cand-phrase">Retention specialist, strategic accounts</div>
+<div class="cand-phrase">Soft spoken, presentable, strong communicator</div>
+<div class="cand-phrase">Accounts that need warmth more than technical depth</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 
-<div class="person">
-<div class="ph" onclick="tog('spencer')">
+<div class="gap-block">
+<div class="gap-name">Technical pre-sales depth</div>
+<div class="gap-issue">Complex enterprise pre-sales needs specialist depth for FinTech, RevRec, and integration-heavy deals.</div>
+<div class="cands">
+<div id="cw-sankari" class="cand-wrap cp-teal">
+<div class="cand-pill" onclick="togC('sankari')">
+<span class="cand-pill-name">Sankari</span>
+<span class="cand-pill-tag">founding</span>
+<span class="cand-pill-arrow">▼</span>
+</div>
+<div class="cand-detail">
+<div class="cand-detail-name">Sankari Sivagurunathan <a href="https://www.linkedin.com/in/sankariss/" target="_blank">LinkedIn ↗</a></div>
+<div class="cand-phrases">
+<div class="cand-phrase">Leads technical solutioning at the highest level</div>
+<div class="cand-phrase">Can code — her technical reviews are substantive</div>
+<div class="cand-phrase">Ex-Microsoft Global Black Belt</div>
+<div class="cand-phrase">Led presales teams at Ally.io and Microsoft</div>
+<div class="cand-phrase">Sets the standard for how MN does pre-sales</div>
+</div>
+</div>
+</div>
+<div id="cw-anish" class="cand-wrap cp-teal">
+<div class="cand-pill" onclick="togC('anish')">
+<span class="cand-pill-name">Anish</span>
+<span class="cand-pill-tag">founding</span>
+<span class="cand-pill-arrow">▼</span>
+</div>
+<div class="cand-detail">
+<div class="cand-detail-name">Anish Venkat <a href="https://www.linkedin.com/in/anish-venkat-7a745395/" target="_blank">LinkedIn ↗</a></div>
+<div class="cand-phrases">
+<div class="cand-phrase">FinTech and payment gateway depth</div>
+<div class="cand-phrase">Built presales from zero at ZenAdmin</div>
+<div class="cand-phrase">Sharp, presentable, executive presence</div>
+<div class="cand-phrase">Supports Perry in senior conversations</div>
+</div>
+</div>
+</div>
+<div id="cw-nivedha" class="cand-wrap cp-teal">
+<div class="cand-pill" onclick="togC('nivedha')">
+<span class="cand-pill-name">Nivedha</span>
+<span class="cand-pill-arrow">▼</span>
+</div>
+<div class="cand-detail">
+<div class="cand-detail-name">Nivedha Venkatesh <a href="https://www.linkedin.com/in/nivedha-venkatesh/" target="_blank">LinkedIn ↗</a></div>
+<div class="cand-phrases">
+<div class="cand-phrase">Pre-sales specialist, entire career at Chargebee</div>
+<div class="cand-phrase">Unmatched product depth</div>
+<div class="cand-phrase">Handles mid-market volume so Sankari stays on enterprise</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="gap-block">
+<div class="gap-name">TAM coverage as account book grows</div>
+<div class="gap-issue">Siraya, Danfoss, DeScope need dedicated TAM ownership. Three people can't cover all with real depth.</div>
+<div class="cands">
+<div id="cw-karthik" class="cand-wrap cp-teal">
+<div class="cand-pill" onclick="togC('karthik')">
+<span class="cand-pill-name">Karthik P Bhat</span>
+<span class="cand-pill-tag">founding hire</span>
+<span class="cand-pill-arrow">▼</span>
+</div>
+<div class="cand-detail">
+<div class="cand-detail-name">Karthik P Bhat <a href="https://www.linkedin.com/in/karthik-p-bhat-493541133/" target="_blank">LinkedIn ↗</a></div>
+<div class="cand-phrases">
+<div class="cand-phrase">Technical TAM anchor — fewer accounts, more depth</div>
+<div class="cand-phrase">6.5 years at Chargebee, 3 promotions</div>
+<div class="cand-phrase">Carries Atreya's CX initiatives so Atreya can filter properly</div>
+<div class="cand-phrase">Professional services anchor for Xage-type accounts</div>
+<div class="cand-phrase">Karthik proving value here justifies growing that team</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+
+<div class="sec-label">Product</div>
+
+<div class="pcard" id="pc-spencer">
+<div class="pcard-header" onclick="togP('spencer')">
 <div class="av" style="background:#d1fae5;color:#065f46">SO</div>
-<div class="pl">
-<div class="prow"><span class="pname">Spencer O'Connor</span><span class="prole">Product Lead</span></div>
-<div class="pdesc">Good at product prioritisation and requirements. Drowning in asks from all directions. Before she goes under, build her a proper pipeline so the right things reach her in the right order.</div>
+<div class="ph-body">
+<div class="ph-top"><span class="ph-name">Spencer O'Connor</span><span class="ph-role">Product Lead</span></div>
+<div class="ph-desc">Good at product prioritisation and requirements. Drowning in asks from all directions. Before she goes under, build her a proper pipeline so the right things reach her in the right order.</div>
 </div>
-<div class="parrow" id="arr-spencer">▼</div>
+<div class="ph-arrow">▼</div>
 </div>
-<div class="pbody" id="spencer">
+<div class="pcard-body">
+<div class="pcard-inner">
+
 <div class="gap-block">
-<div class="gap-label">Product strategy and ROI framing</div>
-<div class="gap-text">No partner to think through product strategy, user stories, roadmap-to-ROI. Those asks land on Spencer instead of being already handled.</div>
-<div class="fix-text">Gopi: 4.5 years product and program at Chargebee across subscriptions, invoicing, taxation, platform. Takes strategy and ROI framing off Spencer so she stays on prioritisation.</div>
-<div class="candidates">
-<a href="https://www.linkedin.com/in/gopi-ganesan/" target="_blank" class="clink">Gopi Ganesan</a>
+<div class="gap-name">Product strategy and ROI framing</div>
+<div class="gap-issue">No partner for product strategy, user stories, roadmap-to-ROI. Those asks land on Spencer instead of being already handled.</div>
+<div class="cands">
+<div id="cw-gopi2" class="cand-wrap cp-amber">
+<div class="cand-pill" onclick="togC('gopi2')">
+<span class="cand-pill-name">Gopi Ganesan</span>
+<span class="cand-pill-arrow">▼</span>
 </div>
+<div class="cand-detail">
+<div class="cand-detail-name">Gopi Ganesan <a href="https://www.linkedin.com/in/gopi-ganesan/" target="_blank">LinkedIn ↗</a></div>
+<div class="cand-phrases">
+<div class="cand-phrase">Spencer's product strategy partner</div>
+<div class="cand-phrase">Product and program at Chargebee 4.5 years</div>
+<div class="cand-phrase">ROI framing, software capitalisation, user stories</div>
+<div class="cand-phrase">Takes strategy asks off Spencer so she stays on prioritisation</div>
 </div>
-<div class="gap-block">
-<div class="gap-label">RevRec requirements as noise</div>
-<div class="gap-text">RevRec asks come in financial language. Without a filter everything lands on Spencer and Austin, most of it not actionable.</div>
-<div class="fix-text">Ashwathraman translates customer RevRec needs into clean product requirements. Filters what reaches Spencer. 4 consecutive President's Club, SAP FICO background.</div>
-<div class="candidates">
-<a href="https://www.linkedin.com/in/ashwathraman-r-03171322/" target="_blank" class="clink">Ashwathraman R<span class="ctag">founding</span></a>
 </div>
 </div>
 </div>
 </div>
 
-<div class="person">
-<div class="ph" onclick="tog('austin')">
+<div class="gap-block">
+<div class="gap-name">RevRec requirements as noise</div>
+<div class="gap-issue">RevRec asks come in financial language. Without a filter everything lands on Spencer and Austin, most not actionable.</div>
+<div class="cands">
+<div id="cw-ash" class="cand-wrap cp-amber">
+<div class="cand-pill" onclick="togC('ash')">
+<span class="cand-pill-name">Ashwathraman R</span>
+<span class="cand-pill-tag">founding</span>
+<span class="cand-pill-arrow">▼</span>
+</div>
+<div class="cand-detail">
+<div class="cand-detail-name">Ashwathraman R <a href="https://www.linkedin.com/in/ashwathraman-r-03171322/" target="_blank">LinkedIn ↗</a></div>
+<div class="cand-phrases">
+<div class="cand-phrase">Global Accounting SME and RevRec specialist</div>
+<div class="cand-phrase">4 consecutive President's Club wins</div>
+<div class="cand-phrase">SAP FICO background — speaks the financial language</div>
+<div class="cand-phrase">Translates customer RevRec needs into clean product requirements</div>
+<div class="cand-phrase">Filters what reaches Spencer — she only sees what is scoped</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+
+<div class="pcard" id="pc-austin">
+<div class="pcard-header" onclick="togP('austin')">
 <div class="av" style="background:#ede9fe;color:#5b21b6">AT</div>
-<div class="pl">
-<div class="prow"><span class="pname">Austin Turner</span><span class="prole">Principal Software Engineer</span></div>
-<div class="pdesc">Good at building the product. Also being asked to translate architecture into customer and market stories. Give Austin someone who thinks like him to carry that.</div>
+<div class="ph-body">
+<div class="ph-top"><span class="ph-name">Austin Turner</span><span class="ph-role">Principal Software Engineer</span></div>
+<div class="ph-desc">Good at building the product. Also being asked to translate architecture into customer and market stories. Give Austin someone who thinks like him to carry that.</div>
 </div>
-<div class="parrow" id="arr-austin">▼</div>
+<div class="ph-arrow">▼</div>
 </div>
-<div class="pbody" id="austin">
+<div class="pcard-body">
+<div class="pcard-inner">
+
 <div class="gap-block">
-<div class="gap-label">Product architecture storytelling</div>
-<div class="gap-text">Austin's product vision has no one to translate into customer narratives, case studies, content strategy. Falls on Austin or doesn't happen.</div>
-<div class="fix-text">Tara: 6 years at Chargebee, UX Writer to Staff Product Designer owning AI experiences. Thinks like Austin. Virtual summits, case studies, content for product delivery. Also helps Perry with referrals and community. Just left Chargebee.</div>
-<div class="candidates">
-<a href="https://www.linkedin.com/in/tarathomas108/" target="_blank" class="clink">Tara Rachel Thomas<span class="ctag">just left Chargebee</span></a>
+<div class="gap-name">Product architecture storytelling</div>
+<div class="gap-issue">Austin's product vision has no one to translate into customer narratives, case studies, content strategy.</div>
+<div class="cands">
+<div id="cw-tara" class="cand-wrap cp-amber">
+<div class="cand-pill" onclick="togC('tara')">
+<span class="cand-pill-name">Tara Rachel Thomas</span>
+<span class="cand-pill-tag">just left Chargebee</span>
+<span class="cand-pill-arrow">▼</span>
 </div>
+<div class="cand-detail">
+<div class="cand-detail-name">Tara Rachel Thomas <a href="https://www.linkedin.com/in/tarathomas108/" target="_blank">LinkedIn ↗</a></div>
+<div class="cand-phrases">
+<div class="cand-phrase">6 years at Chargebee, UX Writer to Staff Product Designer</div>
+<div class="cand-phrase">Owned Chargebee AI experiences — thinks like Austin</div>
+<div class="cand-phrase">Virtual summits, case studies, content for product delivery</div>
+<div class="cand-phrase">Referrals, community, and executive content for Perry</div>
+<div class="cand-phrase">Directs WriteChoice on product narrative</div>
+<div class="cand-phrase">Just left Chargebee — move fast</div>
 </div>
-<div class="gap-block">
-<div class="gap-label">UX and product design</div>
-<div class="gap-text">As the product surface grows, design sits across engineering without dedicated ownership.</div>
-<div class="fix-text">Mrinalini: 5 years UX at Optum, data-heavy systems. Aditya: founding designer at three startups. Both personal connections, genuinely passionate.</div>
-<div class="candidates">
-<a href="https://www.linkedin.com/in/mrinalini-majumdar/" target="_blank" class="clink">Mrinalini Majumdar</a>
-<a href="https://www.linkedin.com/in/aditya-garikapati/" target="_blank" class="clink">Aditya Garikapati</a>
 </div>
 </div>
 </div>
 </div>
 
-<div class="sec">Engineering and CX</div>
+<div class="gap-block">
+<div class="gap-name">UX and product design</div>
+<div class="gap-issue">As the product surface grows, design sits across engineering without dedicated ownership.</div>
+<div class="cands">
+<div id="cw-mrinalini" class="cand-wrap cp-pink">
+<div class="cand-pill" onclick="togC('mrinalini')">
+<span class="cand-pill-name">Mrinalini Majumdar</span>
+<span class="cand-pill-arrow">▼</span>
+</div>
+<div class="cand-detail">
+<div class="cand-detail-name">Mrinalini Majumdar <a href="https://www.linkedin.com/in/mrinalini-majumdar/" target="_blank">LinkedIn ↗</a></div>
+<div class="cand-phrases">
+<div class="cand-phrase">5 years UX at Optum — data-heavy systems</div>
+<div class="cand-phrase">Healthcare product complexity — translates to B2B SaaS well</div>
+<div class="cand-phrase">Personal connection, genuinely passionate</div>
+</div>
+</div>
+</div>
+<div id="cw-aditya" class="cand-wrap cp-pink">
+<div class="cand-pill" onclick="togC('aditya')">
+<span class="cand-pill-name">Aditya Garikapati</span>
+<span class="cand-pill-arrow">▼</span>
+</div>
+<div class="cand-detail">
+<div class="cand-detail-name">Aditya Garikapati <a href="https://www.linkedin.com/in/aditya-garikapati/" target="_blank">LinkedIn ↗</a></div>
+<div class="cand-phrases">
+<div class="cand-phrase">Founding designer at three startups</div>
+<div class="cand-phrase">Built product design from scratch each time</div>
+<div class="cand-phrase">Design nerd — passionate about the right problems</div>
+<div class="cand-phrase">Personal connection, knows the MN space</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 
-<div class="person">
-<div class="ph" onclick="tog('atreya')">
+</div>
+</div>
+</div>
+
+<div class="sec-label">Engineering and CX</div>
+
+<div class="pcard" id="pc-atreya">
+<div class="pcard-header" onclick="togP('atreya')">
 <div class="av" style="background:#fee2e2;color:#991b1b">AN</div>
-<div class="pl">
-<div class="prow"><span class="pname">Atreya Nataraj</span><span class="prole">Staff Engineer</span></div>
-<div class="pdesc">Good at business context and translating between CX and engineers. Being pulled into too many conversations before that translation happens. Let Atreya sit between Spencer and Silas.</div>
+<div class="ph-body">
+<div class="ph-top"><span class="ph-name">Atreya Nataraj</span><span class="ph-role">Staff Engineer</span></div>
+<div class="ph-desc">Good at business context and translating between CX and engineers. Being pulled into too many conversations before that translation happens. Let Atreya sit between Spencer and Silas.</div>
 </div>
-<div class="parrow" id="arr-atreya">▼</div>
+<div class="ph-arrow">▼</div>
 </div>
-<div class="pbody" id="atreya">
+<div class="pcard-body">
+<div class="pcard-inner">
+
 <div class="gap-block">
-<div class="gap-label">CX to engineering chain</div>
-<div class="gap-text">Customer asks go to Silas without filtering. Push back, bad implementation. Teleport is the example.</div>
-<div class="fix-text">CX builds a prototype. Karthik reviews technically and carries it forward. Atreya translates. Sankari checks architecture. By the time Silas sees it, three people have filtered it.</div>
-<div class="candidates">
-<a href="https://www.linkedin.com/in/karthik-p-bhat-493541133/" target="_blank" class="clink">Karthik P Bhat<span class="ctag">founding hire</span></a>
-<a href="https://www.linkedin.com/in/sankariss/" target="_blank" class="clink">Sankari Sivagurunathan<span class="ctag">founding hire</span></a>
+<div class="gap-name">CX to engineering chain</div>
+<div class="gap-issue">Customer asks go to Silas without filtering. Push back, bad implementation. Teleport is the example.</div>
+<div class="cands">
+<div id="cw-karthik2" class="cand-wrap cp-teal">
+<div class="cand-pill" onclick="togC('karthik2')">
+<span class="cand-pill-name">Karthik P Bhat</span>
+<span class="cand-pill-tag">founding hire</span>
+<span class="cand-pill-arrow">▼</span>
+</div>
+<div class="cand-detail">
+<div class="cand-detail-name">Karthik P Bhat <a href="https://www.linkedin.com/in/karthik-p-bhat-493541133/" target="_blank">LinkedIn ↗</a></div>
+<div class="cand-phrases">
+<div class="cand-phrase">First technical filter on CX prototypes</div>
+<div class="cand-phrase">Catches what is not feasible before Atreya spends time on it</div>
+<div class="cand-phrase">Carries Atreya's initiatives — frees Atreya to be the filter</div>
+<div class="cand-phrase">Directs Pylon so customer asks are structured before Atreya sees them</div>
 </div>
 </div>
-<div class="gap-block">
-<div class="gap-label">Pylon feed</div>
-<div class="gap-text">Customer asks sit in Slack. Atreya can't act on what isn't structured.</div>
-<div class="fix-text">Pylon captures and routes customer asks to Atreya and the product roadmap. Karthik and Ashwathraman direct what goes in.</div>
-<div class="candidates">
-<a href="https://www.linkedin.com/in/karthik-p-bhat-493541133/" target="_blank" class="clink">Karthik directs Pylon</a>
-<a href="https://www.linkedin.com/in/ashwathraman-r-03171322/" target="_blank" class="clink">Ashwathraman RevRec layer</a>
+</div>
+<div id="cw-sankari2" class="cand-wrap cp-teal">
+<div class="cand-pill" onclick="togC('sankari2')">
+<span class="cand-pill-name">Sankari Sivagurunathan</span>
+<span class="cand-pill-tag">founding hire</span>
+<span class="cand-pill-arrow">▼</span>
+</div>
+<div class="cand-detail">
+<div class="cand-detail-name">Sankari Sivagurunathan <a href="https://www.linkedin.com/in/sankariss/" target="_blank">LinkedIn ↗</a></div>
+<div class="cand-phrases">
+<div class="cand-phrase">Architecture review above Karthik</div>
+<div class="cand-phrase">Catches what neither Atreya nor Karthik would see</div>
+<div class="cand-phrase">Can code — her review is substantive not ceremonial</div>
+<div class="cand-phrase">Leads Karthik's team</div>
+</div>
 </div>
 </div>
 </div>
 </div>
 
-<div class="person">
-<div class="ph" onclick="tog('silas')">
+</div>
+</div>
+</div>
+
+<div class="pcard" id="pc-silas">
+<div class="pcard-header" onclick="togP('silas')">
 <div class="av" style="background:#f3f4f6;color:#374151">SP</div>
-<div class="pl">
-<div class="prow"><span class="pname">Silas Panackel</span><span class="prole">Principal Software Engineer</span></div>
-<div class="pdesc">Technically strong. The problem is what arrives on his desk. Vague requirements and missing context create push back that is a process problem, not an engineering one.</div>
+<div class="ph-body">
+<div class="ph-top"><span class="ph-name">Silas Panackel</span><span class="ph-role">Principal Software Engineer</span></div>
+<div class="ph-desc">Technically strong. The problem is what arrives on his desk. Vague requirements and missing context create push back that is a process problem, not an engineering one.</div>
 </div>
-<div class="parrow" id="arr-silas">▼</div>
+<div class="ph-arrow">▼</div>
 </div>
-<div class="pbody" id="silas">
+<div class="pcard-body">
+<div class="pcard-inner">
+
 <div class="gap-block">
-<div class="gap-label">Clean requirements before building starts</div>
-<div class="gap-text">Requirements reach Silas without being vetted. He ends up the filter instead of the builder. That is where Teleport happened.</div>
-<div class="fix-text">Karthik filters technically. Atreya translates business context. Sankari checks architecture. Spencer aligns scope. Austin designs. Silas sees a requirement five people have already validated.</div>
-<div class="candidates">
-<a href="https://www.linkedin.com/in/karthik-p-bhat-493541133/" target="_blank" class="clink">Karthik<span class="ctag">founding hire</span></a>
-<a href="https://www.linkedin.com/in/sankariss/" target="_blank" class="clink">Sankari<span class="ctag">founding hire</span></a>
+<div class="gap-name">Clean requirements before building starts</div>
+<div class="gap-issue">Requirements reach Silas without being vetted. He ends up the filter instead of the builder. That is where Teleport happened.</div>
+<div class="cands">
+<div id="cw-karthik3" class="cand-wrap cp-teal">
+<div class="cand-pill" onclick="togC('karthik3')">
+<span class="cand-pill-name">Karthik</span>
+<span class="cand-pill-tag">technical filter</span>
+<span class="cand-pill-arrow">▼</span>
+</div>
+<div class="cand-detail">
+<div class="cand-detail-name">Karthik P Bhat <a href="https://www.linkedin.com/in/karthik-p-bhat-493541133/" target="_blank">LinkedIn ↗</a></div>
+<div class="cand-phrases">
+<div class="cand-phrase">Filters technically before Atreya sees it</div>
+<div class="cand-phrase">Step 1 in the chain that reaches Silas clean</div>
 </div>
 </div>
-<div class="gap-block">
-<div class="gap-label">Implementation and migration</div>
-<div class="gap-text">Implementation work pulls engineering into customer delivery. Silas and Huy shouldn't be in that loop.</div>
-<div class="fix-text">Andrew, Pushkaraj, Rumaan, Vijo own V7. They translate requirements, maintain agents, own implementation quality. Engineering stays on product.</div>
-<div class="candidates">
-<a href="https://www.linkedin.com/in/andrew-samuel-4414a9111/" target="_blank" class="clink">Andrew<span class="ctag">founding hire · V7</span></a>
-<a href="https://www.linkedin.com/in/pushkaraj-tambat-a8612611a/" target="_blank" class="clink">Pushkaraj<span class="ctag">V7 integrations</span></a>
-<a href="https://www.linkedin.com/in/rumaan-a-a21ab791/" target="_blank" class="clink">Rumaan<span class="ctag">V7 migrations</span></a>
-<a href="https://www.linkedin.com/in/vijovarghesek/" target="_blank" class="clink">Vijo</a>
+</div>
+<div id="cw-sankari3" class="cand-wrap cp-teal">
+<div class="cand-pill" onclick="togC('sankari3')">
+<span class="cand-pill-name">Sankari</span>
+<span class="cand-pill-tag">architecture check</span>
+<span class="cand-pill-arrow">▼</span>
+</div>
+<div class="cand-detail">
+<div class="cand-detail-name">Sankari Sivagurunathan <a href="https://www.linkedin.com/in/sankariss/" target="_blank">LinkedIn ↗</a></div>
+<div class="cand-phrases">
+<div class="cand-phrase">Architecture review before Spencer sees it</div>
+<div class="cand-phrase">Catches what would cause rework at Silas's level</div>
+</div>
 </div>
 </div>
 </div>
 </div>
 
+<div class="gap-block">
+<div class="gap-name">Implementation and migration</div>
+<div class="gap-issue">Implementation work pulls engineering into customer delivery. Silas and Huy shouldn't be in that loop.</div>
+<div class="cands">
+<div id="cw-andrew" class="cand-wrap cp-blue">
+<div class="cand-pill" onclick="togC('andrew')">
+<span class="cand-pill-name">Andrew Samuel</span>
+<span class="cand-pill-tag">founding · V7</span>
+<span class="cand-pill-arrow">▼</span>
+</div>
+<div class="cand-detail">
+<div class="cand-detail-name">Andrew Samuel <a href="https://www.linkedin.com/in/andrew-samuel-4414a9111/" target="_blank">LinkedIn ↗</a></div>
+<div class="cand-phrases">
+<div class="cand-phrase">Translates MN's exact implementation needs to V7</div>
+<div class="cand-phrase">ERP background — Epicor, Dynamics AX, Orion</div>
+<div class="cand-phrase">Sets the quality bar for every V7 output</div>
+<div class="cand-phrase">Engineering stays on product, not customer configuration</div>
+</div>
+</div>
+</div>
+<div id="cw-pushkaraj" class="cand-wrap cp-blue">
+<div class="cand-pill" onclick="togC('pushkaraj')">
+<span class="cand-pill-name">Pushkaraj</span>
+<span class="cand-pill-tag">V7 integrations</span>
+<span class="cand-pill-arrow">▼</span>
+</div>
+<div class="cand-detail">
+<div class="cand-detail-name">Pushkaraj Tambat <a href="https://www.linkedin.com/in/pushkaraj-tambat-a8612611a/" target="_blank">LinkedIn ↗</a></div>
+<div class="cand-phrases">
+<div class="cand-phrase">Salesforce Q2C and integration architecture</div>
+<div class="cand-phrase">9 Salesforce certifications</div>
+<div class="cand-phrase">Owns integration-specific V7 items</div>
+</div>
+</div>
+</div>
+<div id="cw-rumaan" class="cand-wrap cp-blue">
+<div class="cand-pill" onclick="togC('rumaan')">
+<span class="cand-pill-name">Rumaan</span>
+<span class="cand-pill-tag">V7 migrations</span>
+<span class="cand-pill-arrow">▼</span>
+</div>
+<div class="cand-detail">
+<div class="cand-detail-name">Rumaan Ahmed <a href="https://www.linkedin.com/in/rumaan-a-a21ab791/" target="_blank">LinkedIn ↗</a></div>
+<div class="cand-phrases">
+<div class="cand-phrase">Translates migration edge cases to V7</div>
+<div class="cand-phrase">GDPR and PCI compliant migration experience</div>
+<div class="cand-phrase">7 years at Chargebee across migration and implementation</div>
+</div>
+</div>
+</div>
+<div id="cw-vijo" class="cand-wrap cp-blue">
+<div class="cand-pill" onclick="togC('vijo')">
+<span class="cand-pill-name">Vijo</span>
+<span class="cand-pill-arrow">▼</span>
+</div>
+<div class="cand-detail">
+<div class="cand-detail-name">Vijo Varghese <a href="https://www.linkedin.com/in/vijovarghesek/" target="_blank">LinkedIn ↗</a></div>
+<div class="cand-phrases">
+<div class="cand-phrase">Implementation support, 15 years overall</div>
+<div class="cand-phrase">Cognizant, Exterro, Replicon, Chargebee</div>
+<div class="cand-phrase">Has seen every edge case V7 hasn't encountered yet</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+
+<!-- Priority Section -->
 <div class="priority">
-<div class="ptitle">Where would you start, Sandeep?</div>
-<div class="psub">Highest cost gaps right now. Each name links to their LinkedIn. Pick what you want to address first and we go from there.</div>
-
-<div class="pgroup-label">Urgent — available now</div>
-<div class="prow2">
-<div class="pn"><a href="https://www.linkedin.com/in/tarathomas108/" target="_blank">Tara Rachel Thomas</a><span class="pn-note">just left Chargebee</span></div>
-<div class="ptags"><span class="ptag">Austin's product storytelling partner</span><span class="ptag">referrals, case studies, community for Perry</span></div>
+<div class="priority-top">
+<div class="priority-title">Where would you start, Sandeep?</div>
+<div class="priority-sub">Pick the tab that matches what is hurting most right now. Each name links to LinkedIn. Budget thinking is included so you can decide what to bring to the team.</div>
 </div>
-<div class="prow2">
-<div class="pn"><a href="https://www.linkedin.com/in/swetha-cb/" target="_blank">Swetha Murali</a><span class="pn-note">meet first</span></div>
-<div class="ptags"><span class="ptag">CFO content + case studies</span><span class="ptag">Brad sells, not writes</span></div>
+<div class="p-tabs">
+<div class="p-tab active" onclick="showTab('urgent')">Move fast</div>
+<div class="p-tab" onclick="showTab('process')">Fix the process</div>
+<div class="p-tab" onclick="showTab('circle')">Your circle</div>
+<div class="p-tab" onclick="showTab('scale')">Scale later</div>
 </div>
 
-<div class="pgroup-label">Founding hires — fix the process</div>
-<div class="prow2">
-<div class="pn"><a href="https://www.linkedin.com/in/prajit-javery-180470137/" target="_blank">Prajit Javery</a></div>
-<div class="ptags"><span class="ptag">Affinity, Jam accounts</span><span class="ptag">CS, retention, growth</span></div>
+<div class="p-panel active" id="tab-urgent">
+<div class="p-row">
+<div class="p-left"><div class="p-cname"><a href="https://www.linkedin.com/in/tarathomas108/" target="_blank">Tara Rachel Thomas</a></div><div class="p-cnote">just left Chargebee</div></div>
+<div class="p-tags"><span class="ptag">Austin's product storytelling partner</span><span class="ptag">case studies + referrals for Perry</span><span class="ptag">directs WriteChoice</span></div>
 </div>
-<div class="prow2">
-<div class="pn"><a href="https://www.linkedin.com/in/sankariss/" target="_blank">Sankari Sivagurunathan</a></div>
-<div class="ptags"><span class="ptag">leads CX to engineering chain</span><span class="ptag">solutions architecture, can code</span></div>
+<div class="p-row">
+<div class="p-left"><div class="p-cname"><a href="https://www.linkedin.com/in/swetha-cb/" target="_blank">Swetha Murali</a></div><div class="p-cnote">meet first · salary high</div></div>
+<div class="p-tags"><span class="ptag">CFO content + case studies</span><span class="ptag">Brad sells, not writes</span><span class="ptag">community + conferences</span></div>
 </div>
-<div class="prow2">
-<div class="pn"><a href="https://www.linkedin.com/in/karthik-p-bhat-493541133/" target="_blank">Karthik P Bhat</a></div>
-<div class="ptags"><span class="ptag">TAM anchor, technical accounts</span><span class="ptag">carries Atreya's CX initiatives</span></div>
+<div class="budget-box">
+<div class="budget-title">Budget thinking</div>
+<div class="budget-body">Both India-based. Tara is likely evaluating options right now — she just left. Swetha will negotiate but a founding PMM title with equity may offset the cash ask. Starting here gives MN a content and storytelling foundation before the next sales push. Every deal without proof content costs more effort than it should.</div>
+<div class="budget-grid">
+<div class="bg-box"><div class="bg-label">Why now</div><div class="bg-text">Tara won't be available long. Swetha needs a vision conversation first — if she believes in MN she becomes its voice.</div></div>
+<div class="bg-box"><div class="bg-label">Risk of waiting</div><div class="bg-text">Every account that could have been a case study is a missed reference. Every deal Brad closes without proof is harder than it needs to be.</div></div>
 </div>
-<div class="prow2">
-<div class="pn"><a href="https://www.linkedin.com/in/praveen-venugopal86/" target="_blank">Praveen Venugopal</a></div>
-<div class="ptags"><span class="ptag">enterprise C-suite accounts</span><span class="ptag">nothing slips, no P0 surprises</span></div>
 </div>
-<div class="prow2">
-<div class="pn"><a href="https://www.linkedin.com/in/andrew-samuel-4414a9111/" target="_blank">Andrew Samuel</a></div>
-<div class="ptags"><span class="ptag">V7 implementation owner</span><span class="ptag">engineering stays on product</span></div>
 </div>
 
-<div class="pgroup-label">Sandeep's circle — fractional, low commitment</div>
-<div class="prow2">
-<div class="pn"><a href="https://www.linkedin.com/in/omarnawaz/" target="_blank">Omar Nawaz</a></div>
-<div class="ptags"><span class="ptag">CPO at Chargebee $8M to $80M ARR</span><span class="ptag">investor narrative, product vision</span></div>
+<div class="p-panel" id="tab-process">
+<div class="p-row">
+<div class="p-left"><div class="p-cname"><a href="https://www.linkedin.com/in/prajit-javery-180470137/" target="_blank">Prajit Javery</a></div></div>
+<div class="p-tags"><span class="ptag">Affinity + Jam accounts</span><span class="ptag">CS, retention, growth</span><span class="ptag">highest referrer conviction in the pool</span></div>
 </div>
-<div class="prow2">
-<div class="pn"><a href="https://www.linkedin.com/in/germainbrion/" target="_blank">Germain Brion</a></div>
-<div class="ptags"><span class="ptag">revenue 100x at Chargebee</span><span class="ptag">revenue strategy, $250M Series H</span></div>
+<div class="p-row">
+<div class="p-left"><div class="p-cname"><a href="https://www.linkedin.com/in/sankariss/" target="_blank">Sankari Sivagurunathan</a></div></div>
+<div class="p-tags"><span class="ptag">leads CX to engineering chain</span><span class="ptag">solutions architecture</span><span class="ptag">can code, highest technical credibility</span></div>
+</div>
+<div class="p-row">
+<div class="p-left"><div class="p-cname"><a href="https://www.linkedin.com/in/karthik-p-bhat-493541133/" target="_blank">Karthik P Bhat</a></div></div>
+<div class="p-tags"><span class="ptag">TAM anchor, technical accounts</span><span class="ptag">carries Atreya's CX initiatives</span><span class="ptag">professional services anchor</span></div>
+</div>
+<div class="p-row">
+<div class="p-left"><div class="p-cname"><a href="https://www.linkedin.com/in/praveen-venugopal86/" target="_blank">Praveen Venugopal</a></div></div>
+<div class="p-tags"><span class="ptag">enterprise C-suite accounts</span><span class="ptag">nothing slips, no P0 surprises</span><span class="ptag">Xage, Mercell, Teleport</span></div>
+</div>
+<div class="p-row">
+<div class="p-left"><div class="p-cname"><a href="https://www.linkedin.com/in/andrew-samuel-4414a9111/" target="_blank">Andrew Samuel</a></div></div>
+<div class="p-tags"><span class="ptag">V7 implementation owner</span><span class="ptag">engineering stays on product</span><span class="ptag">enterprise rollouts on schedule</span></div>
+</div>
+<div class="budget-box">
+<div class="budget-title">Budget thinking</div>
+<div class="budget-body">All five India-based. This group fixes the process gaps costing accounts today. Sankari and Karthik together fix the Teleport problem for every future account. Praveen stops the executive relationship gaps at Xage and Mercell. Prajit gives Affinity the attention it needs to grow. Andrew means Silas and Huy never touch implementation again.</div>
+<div class="budget-grid">
+<div class="bg-box"><div class="bg-label">80% India approach</div><div class="bg-text">Five India-based founding hires at senior IC level. Manageable combined cost. Each covers a critical lane with no overlap.</div></div>
+<div class="bg-box"><div class="bg-label">Sequencing suggestion</div><div class="bg-text">Prajit first — fastest impact on existing accounts. Sankari and Karthik together, they work as a unit. Praveen and Andrew next quarter.</div></div>
+</div>
+</div>
 </div>
 
-<p class="closing">80% of these hires are India-based. Cost stays manageable. Every gap gets covered. Start with what hurts most today and sequence the rest.</p>
+<div class="p-panel" id="tab-circle">
+<div class="p-row">
+<div class="p-left"><div class="p-cname"><a href="https://www.linkedin.com/in/omarnawaz/" target="_blank">Omar Nawaz</a></div></div>
+<div class="p-tags"><span class="ptag">CPO at Chargebee $8M to $80M ARR</span><span class="ptag">built product team to 350</span><span class="ptag">investor narrative + product vision</span></div>
+</div>
+<div class="p-row">
+<div class="p-left"><div class="p-cname"><a href="https://www.linkedin.com/in/germainbrion/" target="_blank">Germain Brion</a></div></div>
+<div class="p-tags"><span class="ptag">revenue 100x at Chargebee</span><span class="ptag">$250M Series H</span><span class="ptag">revenue strategy + GTM</span></div>
+</div>
+<div class="p-row">
+<div class="p-left"><div class="p-cname"><a href="https://www.linkedin.com/in/andydwang/" target="_blank">Andy Wang</a></div></div>
+<div class="p-tags"><span class="ptag">GM ByteDance North America</span><span class="ptag">enterprise AI GTM</span><span class="ptag">Spencer's future AI partner</span></div>
+</div>
+<div class="budget-box">
+<div class="budget-title">Budget thinking</div>
+<div class="budget-body">Omar and Germain are fractional — a monthly advisory retainer, not a full-time salary. They co-found ilimcraft so they come as a pair. The investment is the highest leverage spend in this list. Two people who built Chargebee through this exact stage telling investors they believe in MN is worth more than any pitch deck.</div>
+<div class="budget-grid">
+<div class="bg-box"><div class="bg-label">What fractional means</div><div class="bg-text">A few hours a week, monthly retainer, equity optionality. Low commitment relative to the access and credibility it brings.</div></div>
+<div class="bg-box"><div class="bg-label">What it unlocks</div><div class="bg-text">Investor doors that take years to build alone. Strategic clarity at the moments it matters most.</div></div>
+</div>
+</div>
+</div>
+
+<div class="p-panel" id="tab-scale">
+<div class="p-row">
+<div class="p-left"><div class="p-cname"><a href="https://www.linkedin.com/in/aqil-bary-92692218b/" target="_blank">Aqil Bary</a></div></div>
+<div class="p-tags"><span class="ptag">technical post-sales</span><span class="ptag">deep Chargebee product knowledge</span></div>
+</div>
+<div class="p-row">
+<div class="p-left"><div class="p-cname"><a href="https://www.linkedin.com/in/sanjana-balakrishnan-customer-success/" target="_blank">Sanjana Balakrishnan</a></div></div>
+<div class="p-tags"><span class="ptag">CS across SMB to enterprise</span><span class="ptag">retention, strategic accounts</span></div>
+</div>
+<div class="p-row">
+<div class="p-left"><div class="p-cname"><a href="https://www.linkedin.com/in/pushkaraj-tambat-a8612611a/" target="_blank">Pushkaraj Tambat</a></div></div>
+<div class="p-tags"><span class="ptag">Salesforce Q2C, 9 certifications</span><span class="ptag">V7 integrations layer</span></div>
+</div>
+<div class="p-row">
+<div class="p-left"><div class="p-cname"><a href="https://www.linkedin.com/in/rumaan-a-a21ab791/" target="_blank">Rumaan Ahmed</a></div></div>
+<div class="p-tags"><span class="ptag">V7 migration translation</span><span class="ptag">GDPR/PCI migration experience</span></div>
+</div>
+<div class="p-row">
+<div class="p-left"><div class="p-cname"><a href="https://www.linkedin.com/in/nivedha-venkatesh/" target="_blank">Nivedha Venkatesh</a></div></div>
+<div class="p-tags"><span class="ptag">pre-sales volume, mid-market</span><span class="ptag">entire career at Chargebee</span></div>
+</div>
+<div class="p-row">
+<div class="p-left"><div class="p-cname"><a href="https://www.linkedin.com/in/vijovarghesek/" target="_blank">Vijo Varghese</a></div></div>
+<div class="p-tags"><span class="ptag">implementation support</span><span class="ptag">15 years across platforms</span></div>
+</div>
+<div class="budget-box">
+<div class="budget-title">Budget thinking</div>
+<div class="budget-body">All India-based. This group becomes relevant as account volume grows and the founding team's bandwidth gets fully absorbed. Bring them in when the process layer is working and needs to scale, not before.</div>
+</div>
+</div>
+
+<div class="p-closing">80% of this list is India-based. The total cost is manageable. The question is sequencing — what hurts most today and what can wait a quarter. Start with what is bleeding and build from there.</div>
+</div>
+
 </div>
 
 <script>
-function tog(id){
-  const b=document.getElementById(id);
-  const a=document.getElementById('arr-'+id);
-  if(b&&a){
-    const o=b.classList.contains('open');
-    b.classList.toggle('open',!o);
-    a.classList.toggle('open',!o);
-  }
+function togP(id){
+  const c=document.getElementById('pc-'+id);
+  if(c) c.classList.toggle('open');
+}
+function togC(id){
+  const w=document.getElementById('cw-'+id);
+  if(!w) return;
+  const isOpen=w.classList.contains('open');
+  w.classList.toggle('open',!isOpen);
+  const pill=w.querySelector('.cand-pill');
+  if(pill) pill.classList.toggle('open',!isOpen);
+}
+function showTab(id){
+  const ids=['urgent','process','circle','scale'];
+  document.querySelectorAll('.p-tab').forEach((t,i)=>{
+    t.classList.toggle('active',ids[i]===id);
+  });
+  document.querySelectorAll('.p-panel').forEach(p=>{
+    p.classList.toggle('active',p.id==='tab-'+id);
+  });
 }
 </script>
 </body>
