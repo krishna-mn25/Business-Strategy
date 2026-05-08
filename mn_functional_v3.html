@@ -1,0 +1,326 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans)}
+.page{padding:1.5rem 0 3rem}
+.intro{margin-bottom:1.75rem;max-width:500px}
+.intro-label{font-size:11px;color:var(--color-text-tertiary);margin-bottom:.5rem}
+.intro-title{font-size:16px;font-weight:500;line-height:1.45;margin-bottom:.5rem;color:var(--color-text-primary)}
+.intro-body{font-size:12px;color:var(--color-text-secondary);line-height:1.6}
+.divlabel{font-size:11px;font-weight:500;color:var(--color-text-tertiary);letter-spacing:.07em;text-transform:uppercase;margin:1.5rem 0 .6rem}
+.fb{margin-bottom:8px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden}
+.fh{padding:.75rem 1rem;background:var(--color-background-secondary);cursor:pointer;display:flex;align-items:flex-start;gap:10px}
+.fh:hover{background:var(--color-background-primary)}
+.fl{flex:1}
+.ft{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px;margin-bottom:.2rem}
+.fn{font-size:13px;font-weight:500;color:var(--color-text-primary)}
+.fr{font-size:11px;color:var(--color-text-secondary)}
+.fd{font-size:12px;color:var(--color-text-secondary);line-height:1.5}
+.fhi{font-size:11px;color:var(--color-text-tertiary);display:flex;align-items:center;gap:3px;margin-top:.4rem}
+.fa{font-size:12px;color:var(--color-text-tertiary);transition:transform .2s;flex-shrink:0;padding-top:1px}
+.fa.open{transform:rotate(180deg)}
+.fbody{display:none;border-top:0.5px solid var(--color-border-tertiary)}
+.fbody.open{display:block}
+.gr{padding:.75rem 1rem;border-bottom:0.5px solid var(--color-border-tertiary);background:var(--color-background-primary)}
+.gr:last-child{border-bottom:none}
+.grt{font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:.25rem}
+.grb{font-size:12px;color:#791F1F;background:#FCEBEB;border-radius:var(--border-radius-md);padding:.35rem .7rem;margin:.25rem 0;line-height:1.5}
+.grf{font-size:12px;color:#085041;background:#E1F5EE;border-radius:var(--border-radius-md);padding:.35rem .7rem;margin:.25rem 0;line-height:1.5}
+.grp{display:flex;flex-wrap:wrap;gap:4px;margin-top:.4rem}
+.chip{font-size:11px;padding:2px 8px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.chip:hover{opacity:.75}
+.ct{background:#E1F5EE;color:#085041}
+.cp{background:#EEEDFE;color:#3C3489}
+.ca{background:#FAEEDA;color:#633806}
+.cb{background:#E6F1FB;color:#0C447C}
+.cpk{background:#FBEAF0;color:#72243E}
+.cg{background:var(--color-background-secondary);color:var(--color-text-secondary);border:0.5px solid var(--color-border-tertiary)}
+.cc{background:#FAECE7;color:#712B13}
+.tu{font-size:10px;padding:1px 6px;border-radius:999px;background:#FAEEDA;color:#633806;margin-left:3px}
+.tf{font-size:10px;padding:1px 6px;border-radius:999px;background:#EEEDFE;color:#3C3489;margin-left:3px}
+.tai{font-size:10px;padding:1px 6px;border-radius:999px;background:#E1F5EE;color:#085041;margin-left:3px}
+.av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;flex-shrink:0;margin-top:1px}
+.ab{background:#E6F1FB;color:#0C447C}
+.ag{background:#E1F5EE;color:#085041}
+.aa{background:#FAEEDA;color:#633806}
+.ap{background:#EEEDFE;color:#3C3489}
+.apk{background:#FBEAF0;color:#72243E}
+.ac{background:#FAECE7;color:#712B13}
+.agr{background:var(--color-background-secondary);color:var(--color-text-secondary)}
+</style>
+
+<h2 class="sr-only">MN team functional gaps and candidate matches</h2>
+
+<div class="page">
+
+<div class="intro">
+<div class="intro-label">For Sandeep</div>
+<div class="intro-title">Give each person what they need to do what they are good at</div>
+<div class="intro-body">Each person is good at something specific. The problem is what they are being asked to do around that. This maps each team member's gaps and who from the candidate pool fills them.</div>
+</div>
+
+<div class="divlabel">Sandeep</div>
+
+<div class="fb">
+<div class="fh" onclick="tog('sandeep')">
+<div class="av ab">SJ</div>
+<div class="fl">
+<div class="ft"><span class="fn">Sandeep Jain</span><span class="fr">CEO</span></div>
+<div class="fd">Good at product vision. Needs people who have been here before in his circle for funding, investor narrative, and strategic clarity.</div>
+<div class="fhi"><i class="ti ti-rotate" aria-hidden="true"></i> tap to see gaps and candidates</div>
+</div>
+<div class="fa" id="arr-sandeep">▼</div>
+</div>
+<div class="fbody" id="sandeep">
+<div class="gr">
+<div class="grt">Investor narrative and funding</div>
+<div class="grb">Nobody on the team has been through a raise at this scale. Sandeep is carrying this alone.</div>
+<div class="grf">Omar grew Chargebee product from $8M to $80M ARR. Germain built sales from 3 to 150 people and led the $250M Series H. Both fractional now through ilimcraft. Approach as a pair.</div>
+<div class="grp">
+<span class="chip cc" onclick="sendPrompt('Deep dive on Omar Nawaz')">Omar Nawaz<span class="tf">fractional CPO</span></span>
+<span class="chip cc" onclick="sendPrompt('Deep dive on Germain Brion')">Germain Brion<span class="tf">fractional CRO</span></span>
+</div>
+</div>
+<div class="gr">
+<div class="grt">AI product strategy</div>
+<div class="grb">Nobody on the team has run enterprise AI GTM at scale. This conversation should start now before the roadmap needs it.</div>
+<div class="grf">Andy Wang ran North America enterprise at ByteDance, led industry GTM at DocuSign and Salesforce. Spencer's thinking partner as the AI roadmap builds.</div>
+<div class="grp">
+<span class="chip cc" onclick="sendPrompt('Deep dive on Andy Wang')">Andy Wang<span class="tf">future AI track</span></span>
+</div>
+</div>
+</div>
+</div>
+
+<div class="divlabel">Sales</div>
+
+<div class="fb">
+<div class="fh" onclick="tog('brad')">
+<div class="av aa">BM</div>
+<div class="fl">
+<div class="ft"><span class="fn">Bradley Mortimore</span><span class="fr">Head of Sales</span></div>
+<div class="fd">Good at selling. Also building the content he sells with. Every deal starts from zero proof. Let Brad sell.</div>
+<div class="fhi"><i class="ti ti-rotate" aria-hidden="true"></i> tap to see gaps and candidates</div>
+</div>
+<div class="fa" id="arr-brad">▼</div>
+</div>
+<div class="fbody" id="brad">
+<div class="gr">
+<div class="grt">CFO content, case studies, community</div>
+<div class="grb">Brad walks into every meeting without proof. Building the pitch while delivering it.</div>
+<div class="grf">Swetha owns CFO narratives, case studies, conferences, community. Gopi frames product ROI so Brad can quantify the value conversation. WriteChoice keeps collateral current.</div>
+<div class="grp">
+<span class="chip ca" onclick="sendPrompt('Deep dive on Swetha Murali')">Swetha Murali<span class="tu">meet first</span></span>
+<span class="chip ca" onclick="sendPrompt('Deep dive on Gopi Ganesan')">Gopi Ganesan</span>
+<span class="chip cg">WriteChoice</span>
+</div>
+</div>
+<div class="gr">
+<div class="grt">Revenue strategy</div>
+<div class="grb">Nobody on the current team has built a SaaS revenue org and scaled it.</div>
+<div class="grf">Germain grew Chargebee revenue 100x, team from 3 to 150. Brad gets a thinking partner with a proven playbook, fractional.</div>
+<div class="grp">
+<span class="chip cc" onclick="sendPrompt('Deep dive on Germain Brion')">Germain Brion<span class="tf">fractional CRO</span></span>
+</div>
+</div>
+</div>
+</div>
+
+<div class="fb">
+<div class="fh" onclick="tog('perry')">
+<div class="av apk">PL</div>
+<div class="fl">
+<div class="ft"><span class="fn">Perry, Kevin and Krishna</span><span class="fr">Account coverage</span></div>
+<div class="fd">Between the three of them covering all accounts. Perry is good at operations and executive presence, not customer experience strategy. As the book grows this breaks without the right people behind them.</div>
+<div class="fhi"><i class="ti ti-rotate" aria-hidden="true"></i> tap to see gaps and candidates</div>
+</div>
+<div class="fa" id="arr-perry">▼</div>
+</div>
+<div class="fbody" id="perry">
+<div class="gr">
+<div class="grt">Enterprise C-suite accounts</div>
+<div class="grb">Xage, Mercell, Teleport, FirstDue, Tempo all need executive attention and timeline accountability. Cannot cover every C-suite relationship while running operations.</div>
+<div class="grf">Praveen tracks every column, catches missed promises before they become customer problems. 19 years, PMP. Perry sponsors. Praveen executes.</div>
+<div class="grp">
+<span class="chip ct" onclick="sendPrompt('Deep dive on Praveen Venugopal')">Praveen Venugopal<span class="tf">founding</span></span>
+</div>
+</div>
+<div class="gr">
+<div class="grt">Retention and growth accounts</div>
+<div class="grb">Affinity, Jam and similar need a dedicated growth motion. Getting reactive treatment like every other account.</div>
+<div class="grf">Prajit owns relationship CS for Affinity-type. Padma brings growth strategy and solutions architecture for Mercell, Affinity, Jam. Aqil and Sanjana cover CS depth as the book grows.</div>
+<div class="grp">
+<span class="chip cp" onclick="sendPrompt('Deep dive on Prajit Javery')">Prajit Javery<span class="tf">founding</span></span>
+<span class="chip cp" onclick="sendPrompt('Deep dive on Padmapriya Murali')">Padmapriya Murali</span>
+<span class="chip cp" onclick="sendPrompt('Deep dive on Aqil Bary')">Aqil Bary</span>
+<span class="chip cp" onclick="sendPrompt('Deep dive on Sanjana Balakrishnan')">Sanjana Balakrishnan</span>
+</div>
+</div>
+<div class="gr">
+<div class="grt">Technical pre-sales depth</div>
+<div class="grb">Complex enterprise pre-sales needs specialist depth for FinTech, RevRec, and integration-heavy deals.</div>
+<div class="grf">Sankari leads technical solutioning. Anish covers FinTech and payments depth and also supports Perry on executive presence in senior conversations. Nivedha handles mid-market volume.</div>
+<div class="grp">
+<span class="chip ct" onclick="sendPrompt('Deep dive on Sankari Sivagurunathan')">Sankari<span class="tf">founding</span></span>
+<span class="chip ct" onclick="sendPrompt('Deep dive on Anish Venkat')">Anish<span class="tf">founding</span></span>
+<span class="chip ct" onclick="sendPrompt('Deep dive on Nivedha Venkatesh')">Nivedha</span>
+</div>
+</div>
+<div class="gr">
+<div class="grt">TAM coverage as account book grows</div>
+<div class="grb">Technical accounts like Siraya, Danfoss, DeScope need dedicated TAM ownership. Three people cannot cover all of them with real depth.</div>
+<div class="grf">Karthik is the right founding hire for technical TAM anchor. Fewer accounts, more depth per account. Professional services accounts like Xage get a separate process and dedicated time. Krishna routes based on account type.</div>
+<div class="grp">
+<span class="chip ct" onclick="sendPrompt('Deep dive on Karthik P Bhat')">Karthik P Bhat<span class="tf">founding hire for this role</span></span>
+</div>
+</div>
+</div>
+</div>
+
+<div class="divlabel">Product</div>
+
+<div class="fb">
+<div class="fh" onclick="tog('spencer')">
+<div class="av ag">SO</div>
+<div class="fl">
+<div class="ft"><span class="fn">Spencer O'Connor</span><span class="fr">Product Lead</span></div>
+<div class="fd">Good at product prioritisation and requirements. Drowning in asks coming from all directions. Before she goes under, build her a proper pipeline so the right things reach her in the right order.</div>
+<div class="fhi"><i class="ti ti-rotate" aria-hidden="true"></i> tap to see gaps and candidates</div>
+</div>
+<div class="fa" id="arr-spencer">▼</div>
+</div>
+<div class="fbody" id="spencer">
+<div class="gr">
+<div class="grt">Product strategy and ROI framing</div>
+<div class="grb">No partner to think through product strategy, user stories, and how the roadmap maps to customer and investor ROI. Those asks land on Spencer instead of being already handled.</div>
+<div class="grf">Gopi spent 4.5 years in program and product at Chargebee across subscriptions, invoicing, taxation, and platform. He takes the strategy and ROI framing off Spencer so she stays on prioritisation.</div>
+<div class="grp">
+<span class="chip ca" onclick="sendPrompt('Deep dive on Gopi Ganesan')">Gopi Ganesan</span>
+</div>
+</div>
+<div class="gr">
+<div class="grt">RevRec requirements coming in as noise</div>
+<div class="grb">RevRec asks come from customers in financial language. Without a filter, everything lands on Spencer and Austin and most of it is not actionable without translation.</div>
+<div class="grf">Ashwathraman translates customer RevRec needs into clean product requirements. 4 consecutive President's Club wins. SAP FICO background. He filters what reaches Spencer so she only sees what is actually scoped.</div>
+<div class="grp">
+<span class="chip ca" onclick="sendPrompt('Deep dive on Ashwathraman R')">Ashwathraman R<span class="tf">founding</span></span>
+</div>
+</div>
+</div>
+</div>
+
+<div class="fb">
+<div class="fh" onclick="tog('austin')">
+<div class="av ap">AT</div>
+<div class="fl">
+<div class="ft"><span class="fn">Austin Turner</span><span class="fr">Principal Software Engineer</span></div>
+<div class="fd">Good at building the product. Also being asked to translate architecture into customer and market stories. Give Austin someone who thinks like him to carry that.</div>
+<div class="fhi"><i class="ti ti-rotate" aria-hidden="true"></i> tap to see gaps and candidates</div>
+</div>
+<div class="fa" id="arr-austin">▼</div>
+</div>
+<div class="fbody" id="austin">
+<div class="gr">
+<div class="grt">Product architecture storytelling</div>
+<div class="grb">Austin's product vision has no one to translate it into customer narratives, case studies, and content strategy. Either falls on Austin or does not happen.</div>
+<div class="grf">Tara spent 6 years at Chargebee from UX Writer to Staff Product Designer owning AI experiences. Thinks like Austin. Virtual summits, case studies, content for product delivery. Also helps Perry with referrals and community. She just left Chargebee.</div>
+<div class="grp">
+<span class="chip ca" onclick="sendPrompt('Deep dive on Tara Rachel Thomas')">Tara Rachel Thomas<span class="tu">just left Chargebee</span></span>
+</div>
+</div>
+<div class="gr">
+<div class="grt">UX and product design</div>
+<div class="grb">As the product surface grows, design sits across engineering without dedicated ownership.</div>
+<div class="grf">Mrinalini brings 5 years of UX at Optum with data-heavy systems. Aditya has been founding designer at three startups. Both personal connections, genuinely passionate about this problem.</div>
+<div class="grp">
+<span class="chip cb" onclick="sendPrompt('Deep dive on Mrinalini Majumdar')">Mrinalini Majumdar</span>
+<span class="chip cb" onclick="sendPrompt('Deep dive on Aditya Garikapati')">Aditya Garikapati</span>
+</div>
+</div>
+</div>
+</div>
+
+<div class="divlabel">Engineering and CX</div>
+
+<div class="fb">
+<div class="fh" onclick="tog('atreya')">
+<div class="av ac">AN</div>
+<div class="fl">
+<div class="ft"><span class="fn">Atreya Nataraj</span><span class="fr">Staff Engineer</span></div>
+<div class="fd">Good at business context and translating between CX and engineers. Being pulled into too many conversations before that translation happens. Let Atreya sit between Spencer and Silas.</div>
+<div class="fhi"><i class="ti ti-rotate" aria-hidden="true"></i> tap to see gaps and candidates</div>
+</div>
+<div class="fa" id="arr-atreya">▼</div>
+</div>
+<div class="fbody" id="atreya">
+<div class="gr">
+<div class="grt">CX to engineering chain</div>
+<div class="grb">Customer asks go to Silas without filtering. Silas is technically strong but cannot absorb business context. Push back, bad implementation. Teleport is the example.</div>
+<div class="grf">CX builds a prototype. Karthik (founding hire) reviews it technically and carries it forward. Atreya gets a pre-vetted requirement to translate to Spencer and Silas. Sankari (founding hire) catches architecture issues above Karthik. By the time Silas sees it, three people have already filtered it.</div>
+<div class="grp">
+<span class="chip ct" onclick="sendPrompt('Deep dive on Karthik P Bhat')">Karthik P Bhat<span class="tf">founding hire</span></span>
+<span class="chip ct" onclick="sendPrompt('Deep dive on Sankari Sivagurunathan')">Sankari Sivagurunathan<span class="tf">founding hire</span></span>
+</div>
+</div>
+<div class="gr">
+<div class="grt">Pylon feed</div>
+<div class="grb">Customer asks sit in Slack. Atreya cannot act on what is not structured.</div>
+<div class="grf">Pylon captures and routes customer asks to Atreya and the product roadmap. Karthik and Ashwathraman direct what goes in.</div>
+<div class="grp">
+<span class="chip ct" onclick="sendPrompt('Deep dive on Karthik P Bhat')">Karthik directs Pylon<span class="tai">Pylon</span></span>
+<span class="chip ca" onclick="sendPrompt('Deep dive on Ashwathraman R')">Ashwathraman RevRec layer</span>
+</div>
+</div>
+</div>
+</div>
+
+<div class="fb">
+<div class="fh" onclick="tog('silas')">
+<div class="av agr">SP</div>
+<div class="fl">
+<div class="ft"><span class="fn">Silas Panackel</span><span class="fr">Principal Software Engineer</span></div>
+<div class="fd">Technically strong. The problem is what arrives on his desk. Vague requirements and missing context create push back that looks like an engineering problem but is a process problem.</div>
+<div class="fhi"><i class="ti ti-rotate" aria-hidden="true"></i> tap to see gaps and candidates</div>
+</div>
+<div class="fa" id="arr-silas">▼</div>
+</div>
+<div class="fbody" id="silas">
+<div class="gr">
+<div class="grt">Clean requirements before building starts</div>
+<div class="grb">Requirements reach Silas without being vetted. He ends up the filter instead of the builder. That is where Teleport happened.</div>
+<div class="grf">Karthik (founding hire) filters technically. Atreya translates business context. Sankari (founding hire) checks architecture. Spencer aligns scope. Austin designs. Silas sees a requirement five people have already validated.</div>
+<div class="grp">
+<span class="chip ct" onclick="sendPrompt('Deep dive on Karthik P Bhat')">Karthik<span class="tf">founding hire</span></span>
+<span class="chip cg">Atreya</span>
+<span class="chip ct" onclick="sendPrompt('Deep dive on Sankari Sivagurunathan')">Sankari<span class="tf">founding hire</span></span>
+<span class="chip cg">Spencer</span>
+<span class="chip cg">Austin</span>
+</div>
+</div>
+<div class="gr">
+<div class="grt">Implementation and migration</div>
+<div class="grb">Implementation work pulls engineering into customer delivery. Silas and Huy should not be in that loop.</div>
+<div class="grf">Andrew, Pushkaraj, Rumaan, and Vijo own V7. They translate requirements, maintain agents, own implementation quality. Engineering stays on product.</div>
+<div class="grp">
+<span class="chip cb" onclick="sendPrompt('Deep dive on Andrew Samuel')">Andrew<span class="tf">founding hire</span><span class="tai">V7</span></span>
+<span class="chip cb" onclick="sendPrompt('Deep dive on Pushkaraj Tambat')">Pushkaraj<span class="tai">V7 integrations</span></span>
+<span class="chip cb" onclick="sendPrompt('Deep dive on Rumaan Ahmed')">Rumaan<span class="tai">V7 migrations</span></span>
+<span class="chip cb" onclick="sendPrompt('Deep dive on Vijo Varghese')">Vijo</span>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+<script>
+function tog(id){
+  const b=document.getElementById(id);
+  const a=document.getElementById('arr-'+id);
+  if(b&&a){
+    const o=b.classList.contains('open');
+    b.classList.toggle('open',!o);
+    a.classList.toggle('open',!o);
+  }
+}
+</script>
